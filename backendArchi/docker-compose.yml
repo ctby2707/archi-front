@@ -1,0 +1,34 @@
+services:
+  api-archi:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      # Only will build development stage from our dockerfile
+      target: development
+    env_file:
+        - .env
+    volumes:
+      - .:/usr/src/app
+    # Run in dev Mode: npm run start:dev
+    command: npm run start:dev
+    restart: ${RESTART}
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres-archi
+  postgres-archi:
+    image: postgres
+    restart: ${RESTART}
+    environment:
+      POSTGRES_DB: ${DB_HOST}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - docker-archi-postgres:/var/lib/postgresql/data
+
+volumes:
+  docker-archi-postgres:
+  redis:
+    driver: local
