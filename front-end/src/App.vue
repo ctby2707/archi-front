@@ -41,7 +41,7 @@ interface Pin {
   latitude: number;
 }
 
-const ip: string = process.env.VUE_APP_IP || "http://apiarchiback.francecentral.cloudapp.azure.com";
+const ip: string = process.env.VUE_APP_IP || "http://apiarchibackepitamti.francecentral.cloudapp.azure.com";
 var pins: Pin[] = [];
 const renderComponent = ref(true);
 

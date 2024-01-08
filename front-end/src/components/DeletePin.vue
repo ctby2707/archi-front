@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from 'axios'
 
-const ip: string = process.env.VUE_APP_IP || "http://apiarchiback.francecentral.cloudapp.azure.com";
+const ip: string = process.env.VUE_APP_IP || "http://apiarchibackepitamti.francecentral.cloudapp.azure.com";
 let id  = ""
 
 async function onSubmit() {
