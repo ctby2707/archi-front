@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from 'axios'
 
-const ip : string = process.env.VUE_APP_IP || "http://localhost:3000"
+const ip : string = process.env.VUE_APP_IP || "http://apiarchiback.francecentral.cloudapp.azure.com"
 let name = ''
 let longitude = ''
 let latitude = ''
