@@ -1,0 +1,46 @@
+
+#backend
+
+# compiled output
+backendArchi/dist
+backendArchi/node_modules
+backendArchi/plansTmp
+
+# Logs
+backendArchi/logs
+backendArchi/*.log
+backendArchi/npm-debug.log*
+backendArchi/pnpm-debug.log*
+backendArchi/yarn-debug.log*
+backendArchi/yarn-error.log*
+backendArchi/lerna-debug.log*
+
+# OS
+backendArchi/.DS_Store
+
+# Tests
+backendArchiArchi/coverage
+backendArchiArchi/.nyc_output
+
+# IDEs and editors
+backendArchi/.idea
+backendArchi/.project
+backendArchi/.classpath
+backendArchi/.c9/
+backendArchi/*.launch
+backendArchi/.settings/
+backendArchi/*.sublime-workspace
+
+# IDE - VSCode
+/backendArchi/.vscode/*
+/backendArchi/!.vscode/settings.json
+/backendArchi/!.vscode/tasks.json
+/backendArchi/!.vscode/launch.json
+/backendArchi/!.vscode/extensions.json
+
+#Terraform
+.terraform/
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+terraform.tfstate.backup
+terraform.tfstate
