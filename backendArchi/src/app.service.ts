@@ -25,10 +25,12 @@ export class AppService {
     if (randInt === 0) {
       //try master first
       try {
-        return this.master.pin.findUnique({ where: pinWhereUniqueInput });
+        return await this.master.pin.findUnique({ where: pinWhereUniqueInput });
       } catch (error) {
         try {
-          return this.slave.pin.findUnique({ where: pinWhereUniqueInput });
+          return await this.slave.pin.findUnique({
+            where: pinWhereUniqueInput,
+          });
         } catch (error) {
           console.log(error);
         }
@@ -36,10 +38,12 @@ export class AppService {
     } else {
       // try slave first
       try {
-        return this.slave.pin.findUnique({ where: pinWhereUniqueInput });
+        return await this.slave.pin.findUnique({ where: pinWhereUniqueInput });
       } catch (error) {
         try {
-          return this.master.pin.findUnique({ where: pinWhereUniqueInput });
+          return await this.master.pin.findUnique({
+            where: pinWhereUniqueInput,
+          });
         } catch (error) {
           console.log(error);
         }
@@ -60,7 +64,7 @@ export class AppService {
     if (randInt === 0) {
       //try master first
       try {
-        return this.master.pin.findMany({
+        return await this.master.pin.findMany({
           skip,
           take,
           cursor,
@@ -69,7 +73,7 @@ export class AppService {
         });
       } catch (error) {
         try {
-          return this.slave.pin.findMany({
+          return await this.slave.pin.findMany({
             skip,
             take,
             cursor,
@@ -83,7 +87,7 @@ export class AppService {
     } else {
       // try slave first
       try {
-        return this.slave.pin.findMany({
+        return await this.slave.pin.findMany({
           skip,
           take,
           cursor,
@@ -92,7 +96,7 @@ export class AppService {
         });
       } catch (error) {
         try {
-          return this.master.pin.findMany({
+          return await this.master.pin.findMany({
             skip,
             take,
             cursor,
@@ -104,26 +108,19 @@ export class AppService {
         }
       }
     }
-    return this.master.pin.findMany({
-      skip,
-      take,
-      cursor,
-      where,
-      orderBy,
-    });
   }
 
   async createPin(data: Prisma.PinCreateInput): Promise<Pin> {
     let pin = null;
     try {
-      pin = this.master.pin.create({ data });
-      this.slave.pin.create({ data });
+      pin = await this.master.pin.create({ data });
     } catch (error) {
-      try {
-        pin = this.slave.pin.create({ data });
-      } catch (error) {
-        console.log(error);
-      }
+      console.log(error);
+    }
+    try {
+      pin = await this.slave.pin.create({ data });
+    } catch (error) {
+      console.log(error);
     }
     return pin;
   }
@@ -135,15 +132,14 @@ export class AppService {
     const { where, data } = params;
     let pin = null;
     try {
-      pin = this.master.pin.update({ where, data });
-      this.slave.pin.update({ where, data });
+      pin = await this.master.pin.update({ where, data });
     } catch (error) {
-      //master db is crashed, still have to call slave
-      try {
-        pin = this.slave.pin.update({ where, data });
-      } catch (error) {
-        console.log(error);
-      }
+      console.log(error);
+    }
+    try {
+      pin = await this.slave.pin.update({ where, data });
+    } catch (error) {
+      console.log(error);
     }
     return pin;
   }
@@ -151,15 +147,14 @@ export class AppService {
   async deletePin(where: Prisma.PinWhereUniqueInput): Promise<Pin> {
     let pin = null;
     try {
-      pin = this.master.pin.delete({ where });
-      this.slave.pin.delete({ where });
+      pin = await this.master.pin.delete({ where });
     } catch (error) {
-      //master db is crashed, still have to call slave
-      try {
-        pin = this.slave.pin.delete({ where });
-      } catch (error) {
-        console.log(error);
-      }
+      console.log(error);
+    }
+    try {
+      pin = await this.slave.pin.delete({ where });
+    } catch (error) {
+      console.log(error);
     }
     return pin;
   }
