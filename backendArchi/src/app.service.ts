@@ -8,7 +8,7 @@ export class AppService {
   slave = new PrismaClient({
     datasources: {
       db: {
-        url: 'postgresql://adminuser:password@pgslavearchi.westeurope.cloudapp.azure.com:5432/DATABASE',
+        url: 'postgresql://adminuser:password@pgslavearchi.northeurope.cloudapp.azure.com:5432/DATABASE',
       },
     },
   });
